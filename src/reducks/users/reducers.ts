@@ -1,12 +1,10 @@
 import * as Actions from "./actions";
 import initialState from "../store/initialState";
+import { UserAction } from "./types";
 
 export const UsersReducer = (
   state = initialState.users,
-  action: {
-    type: string;
-    payload: { isSignedIn: boolean; uid: string; username: string };
-  }
+  action: UserAction
 ) => {
   switch (action.type) {
     case Actions.SIGN_IN:
