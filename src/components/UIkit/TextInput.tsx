@@ -1,7 +1,16 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-type Props = {};
+type Props = {
+  fullWidth: boolean;
+  label: string;
+  multiline: boolean;
+  required: boolean;
+  rows: string;
+  value: string;
+  type: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 const TextInput: React.FC<Props> = (props) => {
   return (
     <TextField
