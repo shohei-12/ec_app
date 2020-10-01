@@ -8,6 +8,7 @@ export const saveProduct = (
   description: string,
   category: string,
   gender: string,
+  images: { id: string; path: any }[],
   price: string
 ) => {
   return async (dispatch: any) => {
@@ -18,6 +19,7 @@ export const saveProduct = (
       description: description,
       category: category,
       gender: gender,
+      images: images,
       price: parseInt(price, 10),
       updated_at: timestamp,
     };
