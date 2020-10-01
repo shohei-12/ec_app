@@ -7,10 +7,13 @@ import { saveProduct } from "../reducks/products/operations";
 const ProductEdit: React.FC = () => {
   const dispatch = useDispatch();
 
+  const initialImages: { id: string; path: any }[] = [];
+
   const [name, setName] = useState(""),
     [description, setDescription] = useState(""),
     [category, setCategory] = useState(""),
     [gender, setGender] = useState(""),
+    [images, setImages] = useState(initialImages),
     [price, setPrice] = useState("");
 
   const inputName = useCallback(
@@ -50,7 +53,7 @@ const ProductEdit: React.FC = () => {
     <section>
       <h2 className="u-text__headline u-text-center">商品の登録・編集</h2>
       <div className="c-section-container">
-        <ImageArea />
+        <ImageArea images={images} setImages={setImages} />
         <TextInput
           fullWidth={true}
           label="商品名"
