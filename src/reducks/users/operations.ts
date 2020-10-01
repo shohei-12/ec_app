@@ -1,31 +1,39 @@
 import { signInAction } from "./actions";
 import { push } from "connected-react-router";
-import { State } from "../store/types";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
 
-export const signIn = () => {
-  return async (dispatch: any, getState: any) => {
-    const state: State = getState();
-    const isSignedIn = state.users.isSignedIn;
-
-    if (!isSignedIn) {
-      const url = "https://api.github.com/users/shohei-12";
-
-      const response = await fetch(url)
-        .then((res) => res.json())
-        .catch(() => null);
-
-      const username = response.login;
-
-      dispatch(
-        signInAction({
-          isSignedIn: true,
-          uid: "00001",
-          username: username,
-        })
-      );
-      dispatch(push("/"));
+export const signIn = (email: string, password: string) => {
+  return async (dispatch: any) => {
+    // Validation
+    if (email === "" || password === "") {
+      alert("必須項目が未入力です。");
+      return false;
     }
+
+    auth.signInWithEmailAndPassword(email, password).then((result) => {
+      const user = result.user;
+
+      if (user) {
+        const uid = user.uid;
+
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data()!;
+
+            dispatch(
+              signInAction({
+                role: data.role,
+                uid: uid,
+                username: data.username,
+              })
+            );
+
+            dispatch(push("/"));
+          });
+      }
+    });
   };
 };
 
