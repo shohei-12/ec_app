@@ -24,6 +24,20 @@ type Props = {
 const ImageArea: React.FC<Props> = (props) => {
   const classes = useStyles();
 
+  const deleteImage = useCallback(
+    async (id: string) => {
+      const ret = window.confirm("この画像を削除しますか？");
+      if (!ret) {
+        return false;
+      } else {
+        const newImages = props.images.filter((image) => image.id !== id);
+        props.setImages(newImages);
+        return storage.ref("images").child(id).delete();
+      }
+    },
+    [props.images]
+  );
+
   const uploadImage = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file: any = event.target.files;
@@ -55,7 +69,12 @@ const ImageArea: React.FC<Props> = (props) => {
       <div className="p-grid__list-images">
         {props.images.length > 0 &&
           props.images.map((image, index) => (
-            <ImagePreview key={index} id={image.id} path={image.path} />
+            <ImagePreview
+              key={index}
+              id={image.id}
+              path={image.path}
+              delete={deleteImage}
+            />
           ))}
       </div>
       <div className="u-text-right">
