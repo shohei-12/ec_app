@@ -29,13 +29,13 @@ export const saveProduct = (
 
     if (!id) {
       const ref = productsRef.doc();
-      const id = ref.id;
+      id = ref.id;
       data.id = id;
       data.created_at = timestamp;
     }
 
     return productsRef
-      .doc(data.id)
+      .doc(id)
       .set(data, { merge: true })
       .then(() => dispatch(push("/")))
       .catch((error) => {
