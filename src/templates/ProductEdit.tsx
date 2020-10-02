@@ -4,6 +4,7 @@ import { PrimaryButton, SelectBox, TextInput } from "../components/UIkit";
 import ImageArea from "../components/Products/ImageArea";
 import { saveProduct } from "../reducks/products/operations";
 import { db } from "../firebase";
+import { SetSizeArea } from "../components/Products";
 
 const ProductEdit: React.FC = () => {
   const dispatch = useDispatch();
@@ -11,13 +12,15 @@ const ProductEdit: React.FC = () => {
   const id = window.location.pathname.split("/")[3];
 
   const initialImages: { id: string; path: any }[] = [];
+  const initialSizes: { size: string; quantity: number }[] = [];
 
   const [name, setName] = useState(""),
     [description, setDescription] = useState(""),
     [category, setCategory] = useState(""),
     [gender, setGender] = useState(""),
     [images, setImages] = useState(initialImages),
-    [price, setPrice] = useState("");
+    [price, setPrice] = useState(""),
+    [sizes, setSizes] = useState(initialSizes);
 
   const inputName = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +68,7 @@ const ProductEdit: React.FC = () => {
           setGender(data.gender);
           setImages(data.images);
           setPrice(data.price);
+          setSizes(data.sizes);
         });
     }
   }, [id]);
@@ -118,6 +122,8 @@ const ProductEdit: React.FC = () => {
           type="number"
           onChange={inputPrice}
         />
+        <div className="module-spacer--small" />
+        <SetSizeArea sizes={sizes} setSizes={setSizes} />
         <div className="module-spacer--medium" />
         <div className="center">
           <PrimaryButton
@@ -131,7 +137,8 @@ const ProductEdit: React.FC = () => {
                   category,
                   gender,
                   images,
-                  price
+                  price,
+                  sizes
                 )
               )
             }

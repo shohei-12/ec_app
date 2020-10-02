@@ -7,7 +7,7 @@ type Props = {
   multiline: boolean;
   required: boolean;
   rows: string;
-  value: string;
+  value: string | number;
   type: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
