@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { PrimaryButton, SelectBox, TextInput } from "../components/UIkit";
 import ImageArea from "../components/Products/ImageArea";
 import { saveProduct } from "../reducks/products/operations";
+import { db } from "../firebase";
 
 const ProductEdit: React.FC = () => {
   const dispatch = useDispatch();
+
+  const id = window.location.pathname.split("/")[3];
 
   const initialImages: { id: string; path: any }[] = [];
 
@@ -48,6 +51,23 @@ const ProductEdit: React.FC = () => {
     { id: "male", name: "メンズ" },
     { id: "female", name: "レディース" },
   ];
+
+  useEffect(() => {
+    if (id) {
+      db.collection("products")
+        .doc(id)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.data()!;
+          setName(data.name);
+          setDescription(data.description);
+          setCategory(data.category);
+          setGender(data.gender);
+          setImages(data.images);
+          setPrice(data.price);
+        });
+    }
+  }, [id]);
 
   return (
     <section>
@@ -104,7 +124,15 @@ const ProductEdit: React.FC = () => {
             label="商品情報を保存"
             onClick={() =>
               dispatch(
-                saveProduct(name, description, category, gender, images, price)
+                saveProduct(
+                  id,
+                  name,
+                  description,
+                  category,
+                  gender,
+                  images,
+                  price
+                )
               )
             }
           />
