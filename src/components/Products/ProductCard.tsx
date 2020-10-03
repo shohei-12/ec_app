@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       [theme.breakpoints.down("sm")]: {
         margin: 8,
-        width: "calc(50%-16px)",
+        width: "calc(50% - 16px)",
       },
       [theme.breakpoints.up("sm")]: {
         margin: 16,
-        width: "calc(33.3333%-32px)",
+        width: "calc(33.3333% - 32px)",
       },
     },
     content: {
