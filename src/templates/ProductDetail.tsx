@@ -3,6 +3,7 @@ import parse from "html-react-parser";
 import { db } from "../firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import { Product } from "../reducks/products/types";
+import { ImageSwiper } from "../components/Products";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -48,7 +49,16 @@ const returnCodeToBr = (text: string) => {
 const ProductDetail: React.FC = () => {
   const classes = useStyles();
   const id = window.location.pathname.split("/")[2];
-  const initialProduct: Product = {};
+  const initialProduct: Product = {
+    id: "",
+    name: "",
+    description: "",
+    category: "",
+    gender: "",
+    images: [],
+    price: "",
+    sizes: [],
+  };
 
   const [product, setProduct] = useState(initialProduct);
 
@@ -64,17 +74,19 @@ const ProductDetail: React.FC = () => {
 
   return (
     <section className="c-section-wrapin">
-      {product && (
+      {product.id !== "" && (
         <div className="p-grid__row">
-          <div className={classes.sliderBox}></div>
+          <div className={classes.sliderBox}>
+            <ImageSwiper images={product.images} />
+          </div>
           <div className={classes.detail}>
             <h2 className="u-text__headline">{product.name}</h2>
             <p className={classes.price}>
-              {parseInt(product.price!, 10).toLocaleString()}
+              {parseInt(product.price, 10).toLocaleString()}
             </p>
             <div className="module-spacer--small"></div>
             <div className="module-spacer--small"></div>
-            <p>{returnCodeToBr(product.description!)}</p>
+            <p>{returnCodeToBr(product.description)}</p>
           </div>
         </div>
       )}
