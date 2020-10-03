@@ -14,14 +14,14 @@ export type Products = {
 }[];
 
 export type Product = {
-  id?: string;
-  name?: string;
-  description?: string;
-  category?: string;
-  gender?: string;
-  images?: { id: string; path: any }[];
-  price?: string;
-  sizes?: { size: string; quantity: number }[];
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  gender: string;
+  images: { id: string; path: any }[];
+  price: string;
+  sizes: { size: string; quantity: number }[];
 };
 
 export interface ProductAction {
