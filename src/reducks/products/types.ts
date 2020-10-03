@@ -1,8 +1,19 @@
 export interface ProductState {
-  list: [];
+  list: Products;
 }
+
+export type Products = {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  gender: string;
+  images: { id: string; path: any }[];
+  price: string;
+  sizes: { size: string; quantity: number }[];
+}[];
 
 export interface ProductAction {
   type: string;
-  payload: ProductState;
+  payload: Products;
 }

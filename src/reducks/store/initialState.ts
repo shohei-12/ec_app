@@ -1,6 +1,10 @@
+import { Products } from "../products/types";
+
+const initialProducts: Products = [];
+
 const initialState = {
   products: {
-    list: [],
+    list: initialProducts,
   },
   users: {
     isSignedIn: false,
