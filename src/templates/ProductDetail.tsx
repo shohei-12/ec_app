@@ -48,7 +48,7 @@ const returnCodeToBr = (text: string) => {
 
 const ProductDetail: React.FC = () => {
   const classes = useStyles();
-  const id = window.location.pathname.split("/")[2];
+  const id = window.location.pathname.split("/")[3];
   const initialProduct: Product = {
     id: "",
     name: "",
