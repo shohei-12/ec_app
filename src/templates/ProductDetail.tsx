@@ -3,7 +3,7 @@ import parse from "html-react-parser";
 import { db } from "../firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import { Product } from "../reducks/products/types";
-import { ImageSwiper } from "../components/Products";
+import { ImageSwiper, SizeTable } from "../components/Products";
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -85,6 +85,7 @@ const ProductDetail: React.FC = () => {
               {parseInt(product.price, 10).toLocaleString()}
             </p>
             <div className="module-spacer--small"></div>
+            <SizeTable sizes={product.sizes} />
             <div className="module-spacer--small"></div>
             <p>{returnCodeToBr(product.description)}</p>
           </div>
