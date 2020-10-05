@@ -3,6 +3,11 @@ import { State } from "../store/types";
 
 const usersSelector = (state: State) => state.users;
 
+export const getProductsInCart = createSelector(
+  [usersSelector],
+  (state) => state.cart
+);
+
 export const getIsSignedIn = createSelector(
   [usersSelector],
   (state) => state.isSignedIn
