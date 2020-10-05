@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router";
 import {
   CartList,
+  OrderConfirm,
   ProductDetail,
   ProductEdit,
   ProductList,
@@ -22,6 +23,7 @@ const Router: React.FC = () => {
         <Route path="/product/edit(/:id)?" component={ProductEdit} />
         <Route exact path="/product/detail/:id" component={ProductDetail} />
         <Route exact path="/cart" component={CartList} />
+        <Route exact path="/order/confirm" component={OrderConfirm} />
       </Auth>
     </Switch>
   );
