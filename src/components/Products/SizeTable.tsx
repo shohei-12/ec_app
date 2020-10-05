@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 
 type Props = {
   sizes: { size: string; quantity: number }[];
+  addProduct: (selectedSize: string) => void;
 };
 const SizeTable: React.FC<Props> = (props) => {
   const classes = useStyles();
@@ -38,7 +39,7 @@ const SizeTable: React.FC<Props> = (props) => {
                 <TableCell>残り{size.quantity}点</TableCell>
                 <TableCell className={classes.iconCell}>
                   {size.quantity > 0 ? (
-                    <IconButton>
+                    <IconButton onClick={() => props.addProduct(size.size)}>
                       <ShoppingCartIcon />
                     </IconButton>
                   ) : (

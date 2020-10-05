@@ -70,7 +70,7 @@ const ProductCard: React.FC<Props> = (props) => {
       <CardMedia
         className={classes.media}
         image={images[0].path}
-        onClick={() => dispatch(push("/product/edit/" + props.id))}
+        onClick={() => dispatch(push("/product/detail/" + props.id))}
       />
       <CardContent className={classes.content}>
         <div>
