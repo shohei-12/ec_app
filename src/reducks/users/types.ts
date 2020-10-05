@@ -17,7 +17,7 @@ export interface AddedProduct {
   gender: string;
   images: { id: string; path: any }[];
   name: string;
-  price: string;
+  price: number | string;
   productId: string;
   quantity: number;
   size: string;
