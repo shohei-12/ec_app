@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsInCart } from "../reducks/users/selectors";
 import { CartListItem } from "../components/Products";
 import { PrimaryButton, TextDetail } from "../components/UIkit";
 import { State } from "../reducks/store/types";
+import { orderProduct } from "../reducks/products/operations";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -45,8 +46,12 @@ const OrderConfirm: React.FC = () => {
   }, [productsInCart]);
 
   const postage = subtotal >= 10000 ? 0 : 210;
-  const tax = (subtotal + postage) * 0.1;
+  const tax = subtotal * 0.1;
   const total = subtotal + postage + tax;
+
+  const order = useCallback(() => {
+    dispatch(orderProduct(productsInCart, subtotal));
+  }, [productsInCart, subtotal]);
 
   return (
     <section className="c-section-wrapin">
@@ -64,13 +69,14 @@ const OrderConfirm: React.FC = () => {
             label="商品合計"
             value={"¥" + subtotal.toLocaleString()}
           />
-          <TextDetail label="送料" value={"¥" + postage} />
           <TextDetail label="消費税" value={"¥" + tax.toLocaleString()} />
+          <TextDetail label="送料" value={"¥" + postage} />
           <Divider />
           <TextDetail
             label="合計（税込）"
             value={"¥" + total.toLocaleString()}
           />
+          <PrimaryButton label="注文する" onClick={order} />
         </div>
       </div>
     </section>
