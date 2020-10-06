@@ -4,4 +4,5 @@ import { UserState } from "../users/types";
 export interface State {
   products: ProductState;
   users: UserState;
+  router: any;
 }
