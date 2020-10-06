@@ -5,7 +5,28 @@ import {
 } from "./actions";
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
-import { AddedProduct } from "./types";
+import { Order, AddedProduct } from "./types";
+import { fetchOrdersHistoryAction } from "./actions";
+
+export const fetchOrdersHistory = () => {
+  return async (dispatch: any, getState: any) => {
+    const uid = getState().users.uid;
+    const list: Order[] = [];
+
+    db.collection("users")
+      .doc(uid)
+      .collection("orders")
+      .orderBy("updated_at", "desc")
+      .get()
+      .then((snapshots) => {
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data() as Order;
+          list.push(data);
+        });
+        dispatch(fetchOrdersHistoryAction(list));
+      });
+  };
+};
 
 export const fetchProductsInCart = (products: AddedProduct[]) => {
   return async (dispatch: any) => {
