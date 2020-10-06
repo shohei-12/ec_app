@@ -1,3 +1,14 @@
+export type OrderHistory = {
+  id: string;
+  images: {
+    id: string;
+    path: any;
+  }[];
+  name: string;
+  price: string | number;
+  size: string;
+};
+
 export interface ProductState {
   list: Products;
 }
