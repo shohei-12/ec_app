@@ -1,8 +1,9 @@
 import { Products } from "../products/types";
-import { AddedProduct } from "../users/types";
+import { Order, AddedProduct } from "../users/types";
 
 const initialProducts: Products = [];
 const initialCart: AddedProduct[] = [];
+const initialOrder: Order[] = [];
 
 const initialState = {
   products: {
@@ -11,6 +12,7 @@ const initialState = {
   users: {
     cart: initialCart,
     isSignedIn: false,
+    order: initialOrder,
     role: "",
     uid: "",
     username: "",

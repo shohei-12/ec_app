@@ -1,4 +1,12 @@
-import { UserState, AddedProduct } from "./types";
+import { Order, UserState, AddedProduct } from "./types";
+
+export const FETCH_ORDERS_HISTORY = "FETCH_ORDERS_HISTORY";
+export const fetchOrdersHistoryAction = (list: Order[]) => {
+  return {
+    type: "FETCH_ORDERS_HISTORY",
+    payload: list,
+  };
+};
 
 export const FETCH_PRODUCTS_IN_CART = "FETCH_PRODUCTS_IN_CART";
 export const fetchProductsInCartAction = (products: AddedProduct[]) => {
