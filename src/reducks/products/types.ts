@@ -3,6 +3,16 @@ export type Categories = {
   name: string;
 };
 
+export type Filter = {
+  func: (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    path: string
+  ) => void;
+  label: string;
+  id: string;
+  value: string;
+};
+
 export type OrderHistory = {
   id: string;
   images: {
