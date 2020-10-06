@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { OrderHistoryItem } from "../components/Products";
 import { State } from "../reducks/store/types";
 import { getOrdersHistory } from "../reducks/users/selectors";
 import { fetchOrdersHistory } from "../reducks/users/operations";
@@ -26,7 +27,7 @@ const OrderHistory: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const selector = useSelector((state: State) => state);
-  const orderHistory = getOrdersHistory(selector);
+  const orderHistory = getOrdersHistory(selector)!;
 
   useEffect(() => {
     dispatch(fetchOrdersHistory());
@@ -34,7 +35,12 @@ const OrderHistory: React.FC = () => {
 
   return (
     <section className="c-section-wrapin">
-      <List className={classes.orderList}></List>
+      <List className={classes.orderList}>
+        {orderHistory.length > 0 &&
+          orderHistory.map((order, index) => (
+            <OrderHistoryItem key={index} order={order} />
+          ))}
+      </List>
     </section>
   );
 };
