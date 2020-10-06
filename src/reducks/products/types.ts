@@ -1,3 +1,8 @@
+export type Categories = {
+  id: string;
+  name: string;
+};
+
 export type OrderHistory = {
   id: string;
   images: {

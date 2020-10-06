@@ -5,18 +5,21 @@ import ImageArea from "../components/Products/ImageArea";
 import { saveProduct } from "../reducks/products/operations";
 import { db } from "../firebase";
 import { SetSizeArea } from "../components/Products";
+import { Categories } from "../reducks/products/types";
 
 const ProductEdit: React.FC = () => {
   const dispatch = useDispatch();
 
   const id = window.location.pathname.split("/")[3];
 
+  const initialCategories: Categories[] = [];
   const initialImages: { id: string; path: any }[] = [];
   const initialSizes: { size: string; quantity: number }[] = [];
 
   const [name, setName] = useState(""),
     [description, setDescription] = useState(""),
     [category, setCategory] = useState(""),
+    [categories, setCategories] = useState(initialCategories),
     [gender, setGender] = useState(""),
     [images, setImages] = useState(initialImages),
     [price, setPrice] = useState(""),
@@ -43,12 +46,6 @@ const ProductEdit: React.FC = () => {
     [setPrice]
   );
 
-  const categories = [
-    { id: "tops", name: "トップス" },
-    { id: "shirts", name: "シャツ" },
-    { id: "pants", name: "パンツ" },
-  ];
-
   const genders = [
     { id: "all", name: "すべて" },
     { id: "male", name: "メンズ" },
@@ -72,6 +69,23 @@ const ProductEdit: React.FC = () => {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    db.collection("categories")
+      .orderBy("order", "asc")
+      .get()
+      .then((snapshots) => {
+        const list: Categories[] = [];
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data() as Categories;
+          list.push({
+            id: data.id,
+            name: data.name,
+          });
+        });
+        setCategories(list);
+      });
+  }, []);
 
   return (
     <section>
